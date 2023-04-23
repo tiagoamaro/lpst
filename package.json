@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "GNUGPL-3.0",
   "devDependencies": {
     "prettier": "^2.8.8"
   }
