@@ -1,5 +1,3 @@
-const sidebar = document.querySelector(".puzzle__side")
-const timer = document.createElement("div")
 const storage = window.localStorage
 
 let time = storage.getItem("lpst-timer") || 0
@@ -29,7 +27,7 @@ function lpstStart() {
   timerRef = setInterval(() => {
     time++
     storage.setItem("lpst-timer", time)
-    clock.innerHTML = formatTime(time)
+    clock.textContent = formatTime(time)
   }, 1000)
 }
 
@@ -48,20 +46,55 @@ function lpstReset() {
   clearInterval(timerRef)
   time = 0
   storage.setItem("lpst-timer", time)
-  clock.innerHTML = formatTime(time)
+  clock.textContent = formatTime(time)
 }
 
-timer.classList.add("puzzle__timer")
-timer.innerHTML = `
-    <h2>Timer: <span id="puzzle__timer__clock">${formatTime(time)}</span></h2>
-    <div class="puzzle__timer__toggles">
-        <a id="puzzle__timer__start" class="button">Start</button>
-        <a id="puzzle__timer__pause" class="button">Pause</button>
-        <a id="puzzle__timer__reset" class="button button-empty"">Reset</button>
-    </div>
-`
+// HTML structure
+// Target structure, but we can't use innerHTML attribute since it's an addon
+// timer.innerHTML = `
+//     <h2>Timer: <span class="puzzle__timer__clock">${formatTime(time)}</span></h2>
+//     <div class="puzzle__timer__toggles">
+//         <a id="puzzle__timer__start" class="button">Start</button>
+//         <a id="puzzle__timer__pause" class="button">Pause</button>
+//         <a id="puzzle__timer__reset" class="button button-empty"">Reset</button>
+//     </div>
+// `
+const sidebarEl = document.querySelector(".puzzle__side")
 
-sidebar.append(timer)
+const timerEl = document.createElement("div")
+const headerEl = document.createElement("h2")
+const clockEl = document.createElement("span")
+const togglesEl = document.createElement("div")
+const startButtonEl = document.createElement("button")
+const resetButtonEl = document.createElement("button")
+const pauseButtonEl = document.createElement("button")
+
+startButtonEl.classList.add("button")
+startButtonEl.setAttribute("id", "puzzle__timer__start")
+startButtonEl.textContent = "Start"
+
+resetButtonEl.classList.add("button", "button-empty")
+resetButtonEl.setAttribute("id", "puzzle__timer__reset")
+resetButtonEl.textContent = "Reset"
+
+pauseButtonEl.classList.add("button")
+pauseButtonEl.setAttribute("id", "puzzle__timer__pause")
+pauseButtonEl.textContent = "Pause"
+
+togglesEl.classList.add("puzzle__timer__toggles")
+togglesEl.append(startButtonEl, pauseButtonEl, resetButtonEl)
+
+headerEl.textContent = "Timer: "
+headerEl.append(clockEl)
+
+clockEl.textContent = formatTime(time)
+clockEl.setAttribute("id", "puzzle__timer__clock")
+
+timerEl.classList.add("puzzle__timer")
+timerEl.append(headerEl, togglesEl)
+
+sidebarEl.append(timerEl)
+
 document
   .getElementById("puzzle__timer__start")
   .addEventListener("click", lpstStart)
