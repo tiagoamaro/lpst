@@ -42,6 +42,9 @@ function lpstPause() {
 function lpstReset() {
   const clock = document.getElementById("puzzle__timer__clock")
 
+  document.getElementById("puzzle__timer__start").style.display = "block"
+  document.getElementById("puzzle__timer__pause").style.display = "none"
+
   clearInterval(timerRef)
   time = 0
   storage.setItem("lpst-timer", time)
