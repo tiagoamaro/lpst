@@ -1,6 +1,6 @@
 # LPST (Lichess Puzzle Streak Timer)
 
-Browser addon that adds a countdown timer for Lichess puzzles.
+Browser addon that adds a timer for Lichess puzzles.
 
 ## License
 
