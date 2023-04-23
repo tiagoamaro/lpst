@@ -5,7 +5,7 @@
     "version": "1.0",
     "description": "Lichess Puzzle Streak Timer",
     "icons": {
-        "48": "icons/border-48.png"
+        "48": "icons/lpst.png"
     },
     "content_scripts": [{
         "matches": ["*://*.lichess.org/*"],
