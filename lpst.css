@@ -1,0 +1,16 @@
+.puzzle__timer {
+    background: rgba(0,0,0,.6);
+    padding: 2vmin;
+    overflow: hidden;
+}
+
+.puzzle__timer h2 {
+    margin-bottom: 1rem;
+}
+
+.puzzle__timer .puzzle__timer__toggles {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+}

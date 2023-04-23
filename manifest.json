@@ -1,0 +1,16 @@
+{
+
+    "manifest_version": 2,
+    "name": "lpst",
+    "version": "1.0",
+    "description": "Lichess PuzzleStreak Timer",
+    "icons": {
+        "48": "icons/border-48.png"
+    },
+    "content_scripts": [{
+        "matches": ["*://*.lichess.org/*"],
+        "js": ["lpst.js"],
+        "css": ["lpst.css"]
+    }]
+
+}

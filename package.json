@@ -1,0 +1,14 @@
+{
+  "name": "lpst",
+  "version": "1.0.0",
+  "description": "Lichess PuzzleStreak Timer",
+  "main": "lpst.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
+}
