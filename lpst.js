@@ -8,7 +8,7 @@ let timerRef
 /**
  * Formats a given time into a readable string.
  *
- * @param {Date} time - The time to format.
+ * @param {Number} time - The time to format.
  * @returns {string} The formatted time string.
  */
 function formatTime(time) {
@@ -23,11 +23,20 @@ function formatTime(time) {
 function lpstStart() {
   const clock = document.getElementById("puzzle__timer__clock")
 
+  document.getElementById("puzzle__timer__start").style.display = "none"
+  document.getElementById("puzzle__timer__pause").style.display = "block"
+
   timerRef = setInterval(() => {
     time++
     storage.setItem("lpst-timer", time)
     clock.innerHTML = formatTime(time)
   }, 1000)
+}
+
+function lpstPause() {
+  clearInterval(timerRef)
+  document.getElementById("puzzle__timer__start").style.display = "block"
+  document.getElementById("puzzle__timer__pause").style.display = "none"
 }
 
 function lpstReset() {
@@ -44,6 +53,7 @@ timer.innerHTML = `
     <h2>Timer: <span id="puzzle__timer__clock">${formatTime(time)}</span></h2>
     <div class="puzzle__timer__toggles">
         <a id="puzzle__timer__start" class="button">Start</button>
+        <a id="puzzle__timer__pause" class="button">Pause</button>
         <a id="puzzle__timer__reset" class="button button-empty"">Reset</button>
     </div>
 `
@@ -55,8 +65,14 @@ document
 document
   .getElementById("puzzle__timer__reset")
   .addEventListener("click", lpstReset)
+document
+  .getElementById("puzzle__timer__pause")
+  .addEventListener("click", lpstPause)
 
 // Start the timer in case the page is reloaded
 if (time > 0) {
   lpstStart()
+  document.getElementById("puzzle__timer__start").style.display = "none"
+} else {
+  document.getElementById("puzzle__timer__pause").style.display = "none"
 }
