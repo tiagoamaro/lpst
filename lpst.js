@@ -1,6 +1,8 @@
 const sidebar = document.querySelector(".puzzle__side")
 const timer = document.createElement("div")
-let time = 0
+const storage = window.localStorage
+
+let time = storage.getItem("lpst-timer") || 0
 let timerRef
 
 /**
@@ -19,32 +21,42 @@ function formatTime(time) {
 }
 
 function lpstStart() {
-  const clock = document.getElementById("clock")
+  const clock = document.getElementById("puzzle__timer__clock")
 
-  lpstReset()
   timerRef = setInterval(() => {
     time++
+    storage.setItem("lpst-timer", time)
     clock.innerHTML = formatTime(time)
   }, 1000)
 }
 
 function lpstReset() {
-  const clock = document.getElementById("clock")
+  const clock = document.getElementById("puzzle__timer__clock")
 
   clearInterval(timerRef)
   time = 0
+  storage.setItem("lpst-timer", time)
   clock.innerHTML = formatTime(time)
 }
 
 timer.classList.add("puzzle__timer")
 timer.innerHTML = `
-    <h2>Timer: <span id="clock">${formatTime(time)}</span></h2>
+    <h2>Timer: <span id="puzzle__timer__clock">${formatTime(time)}</span></h2>
     <div class="puzzle__timer__toggles">
-        <a id="start" class="button">Start</button>
-        <a id="reset" class="button button-empty"">Reset</button>
+        <a id="puzzle__timer__start" class="button">Start</button>
+        <a id="puzzle__timer__reset" class="button button-empty"">Reset</button>
     </div>
 `
 
 sidebar.append(timer)
-document.getElementById("start").addEventListener("click", lpstStart)
-document.getElementById("reset").addEventListener("click", lpstReset)
+document
+  .getElementById("puzzle__timer__start")
+  .addEventListener("click", lpstStart)
+document
+  .getElementById("puzzle__timer__reset")
+  .addEventListener("click", lpstReset)
+
+// Start the timer in case the page is reloaded
+if (time > 0) {
+  lpstStart()
+}
