@@ -6,7 +6,7 @@ Browser addon that adds a timer for Lichess puzzles.
 
 GNU GENERAL PUBLIC LICENSE Version 3
 
-Logo is using the Lichess logo and the hourglass openmoji images.
+Logo is using the Lichess logo [1] and the hourglass openmoji [2] images.
 
-[1] https://lichess.org/about
-[2] https://github.com/hfg-gmuend/openmoji
+* [1] https://lichess.org/about
+* [2] https://github.com/hfg-gmuend/openmoji
