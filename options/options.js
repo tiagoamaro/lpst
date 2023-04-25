@@ -45,8 +45,18 @@ async function setStorageItem(key, value) {
 }
 
 const lifetimeEl = document.getElementById("puzzle__timer__lifetime")
+const resetLifetimeEl = document.getElementById(
+  "puzzle__timer__reset__lifetime"
+)
 
 getStorageItem(LPST_TIMER_LIFETIME).then((lifetime) => {
-  console.log(lifetime)
   lifetimeEl.textContent = formatTime(lifetime)
+})
+resetLifetimeEl.addEventListener("click", () => {
+  if (confirm("Are you sure?")) {
+    getStorageItem(LPST_TIMER_REF).then((ref) => {
+      clearInterval(ref)
+      setStorageItem(LPST_TIMER_LIFETIME, 0)
+    })
+  }
 })

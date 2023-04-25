@@ -48,18 +48,18 @@ function formatTime(time) {
 
 async function lpstStart() {
   const clock = document.getElementById("puzzle__timer__clock")
-  let lifetime = (await getStorageItem(LPST_TIMER_LIFETIME)) || 0
-  let time = (await getStorageItem(LPST_TIMER)) || 0
-
   document.getElementById("puzzle__timer__start").style.display = "none"
   document.getElementById("puzzle__timer__pause").style.display = "block"
 
   const intervalRef = setInterval(() => {
-    time++
-    lifetime++
-    setStorageItem(LPST_TIMER, time)
-    setStorageItem(LPST_TIMER_LIFETIME, lifetime)
-    clock.textContent = formatTime(time)
+    getStorageItem(LPST_TIMER).then((time) => {
+      setStorageItem(LPST_TIMER, ++time)
+      clock.textContent = formatTime(time)
+    })
+
+    getStorageItem(LPST_TIMER_LIFETIME).then((lifetime) =>
+      setStorageItem(LPST_TIMER_LIFETIME, ++lifetime)
+    )
   }, 1000)
 
   setStorageItem(LPST_TIMER_REF, intervalRef)
