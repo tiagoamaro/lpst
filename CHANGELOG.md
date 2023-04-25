@@ -1,5 +1,9 @@
 # Unreleased
 
+## 1.2.0
+
+* Save total time spent on puzzles (allow resetting it as well) ([@michuk](https://lichess.org/@/michuk))
+
 ## 1.1.0
 
 * Move timer to top of move list ([@Toscani](https://lichess.org/@/Toscani))
