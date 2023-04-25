@@ -2,6 +2,10 @@
 
 Browser addon that adds a timer for Lichess puzzles.
 
+## Lichess community thread
+
+* https://lichess.org/forum/general-chess-discussion/firefox-addon-keeping-track-of-time-spent-on-puzzles-lpst
+
 ## License
 
 GNU GENERAL PUBLIC LICENSE Version 3
