@@ -61,7 +61,7 @@ function lpstStart() {
     clock.textContent = formatTime(time)
   }, 1000)
 
-  storage.setItem("lpst-timer-ref", intervalRef)
+  setStorageItem(LPST_TIMER_REF, intervalRef)
 }
 
 function lpstPause() {
