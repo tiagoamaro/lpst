@@ -1,7 +1,6 @@
 .puzzle__timer {
     background: rgba(0,0,0,.6);
     padding: 2vmin;
-    overflow: hidden;
 }
 
 .puzzle__timer h2 {

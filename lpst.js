@@ -59,7 +59,7 @@ function lpstReset() {
 //         <a id="puzzle__timer__reset" class="button button-empty"">Reset</button>
 //     </div>
 // `
-const sidebarEl = document.querySelector(".puzzle__side")
+const toolsEl = document.querySelector(".puzzle__tools")
 
 const timerEl = document.createElement("div")
 const headerEl = document.createElement("h2")
@@ -93,7 +93,7 @@ clockEl.setAttribute("id", "puzzle__timer__clock")
 timerEl.classList.add("puzzle__timer")
 timerEl.append(headerEl, togglesEl)
 
-sidebarEl.append(timerEl)
+toolsEl.prepend(timerEl)
 
 document
   .getElementById("puzzle__timer__start")
