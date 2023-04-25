@@ -1,7 +1,26 @@
 const storage = window.localStorage
+const LPST_TIMER = "lpst-timer"
+const LPST_TIMER_REF = "lpst-timer-ref"
 
-let time = storage.getItem("lpst-timer") || 0
-let timerRef
+/**
+ * Retrieves the value associated with the given key from the browser's local storage.
+ *
+ * @param {string} key - The key of the item to retrieve.
+ * @returns {string|null} - The value associated with the key, or null if the key does not exist.
+ */
+function getStorageItem(key) {
+  return storage.getItem(key)
+}
+
+/**
+ * Sets the value of a key in the browser's local storage.
+ *
+ * @param {string} key - The key to set.
+ * @param {any} value - The value to associate with the key.
+ */
+function setStorageItem(key, value) {
+  storage.setItem(key, value)
+}
 
 /**
  * Formats a given time into a readable string.
@@ -20,33 +39,40 @@ function formatTime(time) {
 
 function lpstStart() {
   const clock = document.getElementById("puzzle__timer__clock")
+  let time = getStorageItem(LPST_TIMER) || 0
 
   document.getElementById("puzzle__timer__start").style.display = "none"
   document.getElementById("puzzle__timer__pause").style.display = "block"
 
-  timerRef = setInterval(() => {
+  const intervalRef = setInterval(() => {
     time++
-    storage.setItem("lpst-timer", time)
+    setStorageItem(LPST_TIMER, time)
     clock.textContent = formatTime(time)
   }, 1000)
+
+  storage.setItem("lpst-timer-ref", intervalRef)
 }
 
 function lpstPause() {
+  const timerRef = getStorageItem(LPST_TIMER_REF)
+
   clearInterval(timerRef)
+  setStorageItem(LPST_TIMER_REF, null)
+
   document.getElementById("puzzle__timer__start").style.display = "block"
   document.getElementById("puzzle__timer__pause").style.display = "none"
 }
 
 function lpstReset() {
   const clock = document.getElementById("puzzle__timer__clock")
+  const timerRef = getStorageItem(LPST_TIMER_REF)
 
   document.getElementById("puzzle__timer__start").style.display = "block"
   document.getElementById("puzzle__timer__pause").style.display = "none"
 
   clearInterval(timerRef)
-  time = 0
-  storage.setItem("lpst-timer", time)
-  clock.textContent = formatTime(time)
+  setStorageItem(LPST_TIMER, 0)
+  clock.textContent = formatTime(0)
 }
 
 // HTML structure
@@ -87,7 +113,7 @@ togglesEl.append(startButtonEl, pauseButtonEl, resetButtonEl)
 headerEl.textContent = "Timer: "
 headerEl.append(clockEl)
 
-clockEl.textContent = formatTime(time)
+clockEl.textContent = formatTime(getStorageItem(LPST_TIMER))
 clockEl.setAttribute("id", "puzzle__timer__clock")
 
 timerEl.classList.add("puzzle__timer")
@@ -105,10 +131,4 @@ document
   .getElementById("puzzle__timer__pause")
   .addEventListener("click", lpstPause)
 
-// Start the timer in case the page is reloaded
-if (time > 0) {
-  lpstStart()
-  document.getElementById("puzzle__timer__start").style.display = "none"
-} else {
-  document.getElementById("puzzle__timer__pause").style.display = "none"
-}
+lpstStart()
