@@ -1,5 +1,7 @@
 # LPST (Lichess Puzzle Streak Timer)
 
+![lpst-icon](./icons/lpst.png)
+
 Browser addon that adds a timer for Lichess puzzles.
 
 ## Lichess community thread
