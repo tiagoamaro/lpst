@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "lpst",
-    "version": "1.0",
+    "version": "1.1.0",
     "description": "Lichess Puzzle Streak Timer",
     "icons": {
         "48": "icons/lpst.png"
