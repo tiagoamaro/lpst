@@ -1,5 +1,6 @@
 const storage = window.localStorage
 const LPST_TIMER = "lpst-timer"
+const LPST_TIMER_LIFETIME = "lpst-timer-lifetime"
 const LPST_TIMER_REF = "lpst-timer-ref"
 
 /**
@@ -46,6 +47,7 @@ function formatTime(time) {
 
 function lpstStart() {
   const clock = document.getElementById("puzzle__timer__clock")
+  let lifetime = getStorageItem(LPST_TIMER_LIFETIME) || 0
   let time = getStorageItem(LPST_TIMER) || 0
 
   document.getElementById("puzzle__timer__start").style.display = "none"
@@ -53,7 +55,9 @@ function lpstStart() {
 
   const intervalRef = setInterval(() => {
     time++
+    lifetime++
     setStorageItem(LPST_TIMER, time)
+    setStorageItem(LPST_TIMER_LIFETIME, lifetime)
     clock.textContent = formatTime(time)
   }, 1000)
 
