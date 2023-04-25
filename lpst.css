@@ -1,5 +1,8 @@
+body.light .puzzle__timer {
+    background: #f7f6f5;
+}
+
 .puzzle__timer {
-    background: rgba(0,0,0,.6);
     padding: 2vmin;
 }
 
