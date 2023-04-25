@@ -13,4 +13,7 @@
         "css": ["lpst.css"]
     }]
 
+    "permissions": [
+        "storage"
+    ]
 }
