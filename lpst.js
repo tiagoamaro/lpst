@@ -53,13 +53,19 @@ async function lpstStart() {
 
   const intervalRef = setInterval(() => {
     getStorageItem(LPST_TIMER).then((time) => {
-      setStorageItem(LPST_TIMER, ++time)
-      clock.textContent = formatTime(time)
+      const currentTime = time || 0
+      currentTime++
+
+      setStorageItem(LPST_TIMER, currentTime)
+      clock.textContent = formatTime(currentTime)
     })
 
-    getStorageItem(LPST_TIMER_LIFETIME).then((lifetime) =>
-      setStorageItem(LPST_TIMER_LIFETIME, ++lifetime)
-    )
+    getStorageItem(LPST_TIMER_LIFETIME).then((lifetime) => {
+      const currentTime = lifetime || 0
+      currentTime++
+
+      setStorageItem(LPST_TIMER_LIFETIME, currentTime)
+    })
   }, 1000)
 
   setStorageItem(LPST_TIMER_REF, intervalRef)
