@@ -21,17 +21,28 @@ async function getStorageItem(key) {
  * @returns {string} The formatted time string.
  */
 function formatTime(time) {
-  const hours = Math.floor(time / 3600)
-  const minutes = Math.floor((time - hours * 3600) / 60)
+  const days = Math.floor(time / 86400)
+  const hours = Math.floor((time % 86400) / 3600)
+  const minutes = Math.floor((time % 3600) / 60)
   const seconds = time % 60
 
-  if (hours > 0) {
-    return `${hours} hours, ${minutes} minutes and ${seconds} seconds`
-  } else if (minutes > 0) {
-    return `${minutes} minutes and ${seconds} seconds`
-  } else {
-    return `${seconds} seconds`
-  }
+  const timeValues = [
+    { value: days, label: "day" },
+    { value: hours, label: "hour" },
+    { value: minutes, label: "minute" },
+    { value: seconds, label: "second" },
+  ]
+
+  const timeString = timeValues.reduce((str, { value, label }) => {
+    if (value > 0) {
+      const plural = value !== 1 ? "s" : ""
+      const timeLabel = `${value} ${label}${plural}`
+      return str ? `${str}, ${timeLabel}` : timeLabel
+    }
+    return str
+  }, "")
+
+  return timeString || "0 seconds"
 }
 
 /**
@@ -57,6 +68,7 @@ resetLifetimeEl.addEventListener("click", () => {
     getStorageItem(LPST_TIMER_REF).then((ref) => {
       clearInterval(ref)
       setStorageItem(LPST_TIMER_LIFETIME, 0)
+      lifetimeEl.textContent = formatTime(0)
     })
   }
 })

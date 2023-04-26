@@ -53,7 +53,7 @@ async function lpstStart() {
 
   const intervalRef = setInterval(() => {
     getStorageItem(LPST_TIMER).then((time) => {
-      const currentTime = time || 0
+      let currentTime = time || 0
       currentTime++
 
       setStorageItem(LPST_TIMER, currentTime)
@@ -61,7 +61,7 @@ async function lpstStart() {
     })
 
     getStorageItem(LPST_TIMER_LIFETIME).then((lifetime) => {
-      const currentTime = lifetime || 0
+      let currentTime = lifetime || 0
       currentTime++
 
       setStorageItem(LPST_TIMER_LIFETIME, currentTime)
@@ -83,12 +83,7 @@ async function lpstPause() {
 
 async function lpstReset() {
   const clock = document.getElementById("puzzle__timer__clock")
-  const timerRef = await getStorageItem(LPST_TIMER_REF)
 
-  document.getElementById("puzzle__timer__start").style.display = "block"
-  document.getElementById("puzzle__timer__pause").style.display = "none"
-
-  clearInterval(timerRef)
   await setStorageItem(LPST_TIMER, 0)
   clock.textContent = formatTime(0)
 }
@@ -133,7 +128,7 @@ headerEl.append(clockEl)
 
 clockEl.setAttribute("id", "puzzle__timer__clock")
 getStorageItem(LPST_TIMER).then(
-  (currentTime) => (clockEl.textContent = formatTime(currentTime))
+  (currentTime) => (clockEl.textContent = formatTime(currentTime || 0))
 )
 
 timerEl.classList.add("puzzle__timer")
